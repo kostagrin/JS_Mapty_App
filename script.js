@@ -98,3 +98,27 @@ class Workout {
     this.coords = coords;
   }
 }
+
+class Running extends Workout {
+  constructor(coords, distance, duration, cadence, pace) {
+    super(distance, duration, coords);
+    this.cadence = cadence;
+    this.calcPace();
+  }
+  calcPace() {
+    this.pace = this.duration / this.distance;
+    return this.pace;
+  }
+}
+
+class Sycling extends Workout {
+  constructor(coords, distance, duration, elevaionGain, speed) {
+    super(distance, duration, coords);
+    this.elevaionGain = elevaionGain;
+    this.calcSpeed();
+  }
+  calcSpeed() {
+    this.speed = this.distance / (this.duration / 60);
+    return this.speed;
+  }
+}

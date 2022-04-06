@@ -18,7 +18,9 @@ class Workout {
   _setDescription() {
     // prettier-ignore
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} ${this.date.getDate()}`
+    this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
+      months[this.date.getMonth()]
+    } ${this.date.getDate()}`;
   }
 }
 
@@ -54,7 +56,7 @@ class App {
   #map;
   #mapEvent;
   #workouts = [];
-  
+
   constructor() {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
@@ -80,7 +82,8 @@ class App {
     this.#map = L.map('map').setView(coords, 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.fr/hot/copyright">OpenStreetMap</a> contributors',
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.fr/hot/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.#map);
 
     this.#map.on('click', this._showForm.bind(this));
@@ -98,11 +101,11 @@ class App {
       inputDuration.value =
       inputCadence.value =
       inputElevation.value =
-      '';
-    form.style.display = 'none';  
+        '';
+    form.style.display = 'none';
     form.classList.add('hidden');
     setTimeout(() => {
-      form.style.display = 'grid'
+      form.style.display = 'grid';
     }, 1000);
   }
 
@@ -176,16 +179,22 @@ class App {
           className: `${workout.type}-popup`,
         })
       )
-      .setPopupContent(workout.distance.toString())
+      .setPopupContent(
+        `${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'} ${workout.description}`
+      )
       .openPopup();
   }
 
   _renderWorkout(workout) {
     let html = `
     <li class="workout workout--${workout.type}" data-id="${workout.id}">
-          <h2 class="workout__title">${workout.description}Running on April 14</h2>
+          <h2 class="workout__title">${
+            workout.description
+          }Running on April 14</h2>
           <div class="workout__details">
-            <span class="workout__icon">${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'}</span>
+            <span class="workout__icon">${
+              workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'
+            }</span>
             <span class="workout__value">${workout.distance}</span>
             <span class="workout__unit">km</span>
           </div>
@@ -194,7 +203,7 @@ class App {
             <span class="workout__value">${workout.duration}</span>
             <span class="workout__unit">min</span>
           </div>
-    `
+    `;
     if (workout.type === 'running') {
       html += `
       <div class="workout__details">
@@ -208,7 +217,7 @@ class App {
             <span class="workout__unit">spm</span>
           </div>
         </li>
-      `
+      `;
     }
     if (workout.type === 'cycling') {
       html += `
@@ -223,7 +232,7 @@ class App {
             <span class="workout__unit">m</span>
           </div>
         </li>
-      `
+      `;
     }
 
     form.insertAdjacentHTML('afterend', html);

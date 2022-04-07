@@ -10,7 +10,6 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
-  clicks = 0;
   constructor(coords, distance, duration) {
     this.coords = coords;
     this.distance = distance;
@@ -22,10 +21,6 @@ class Workout {
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
-  }
-
-  click() {
-    this.clicks++;
   }
 }
 
@@ -268,9 +263,6 @@ class App {
       animate: true,
       pan: { duration: 0.5 },
     });
-
-    // Use publick interface
-    workout.click();
   }
 
   _setLocalStorage() {
@@ -279,11 +271,16 @@ class App {
 
   _getLocalStorage() {
     let data = JSON.parse(localStorage.getItem('workouts'));
-    if(!data) return;
+    if (!data) return;
     this.#workouts = data;
     this.#workouts.forEach(workout => {
       this._renderWorkout(workout);
     });
+  }
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
   }
 }
 

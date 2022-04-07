@@ -10,6 +10,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
+  clicks = 0;
   constructor(coords, distance, duration) {
     this.coords = coords;
     this.distance = distance;
@@ -21,6 +22,10 @@ class Workout {
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
+  }
+
+  click() {
+    this.clicks++;
   }
 }
 
@@ -243,12 +248,17 @@ class App {
     let workouEl = e.target.closest('.workout');
     if (!workouEl) return;
 
-    let workout = this.#workouts.find(w => w.id === workouEl.dataset.id)
+    let workout = this.#workouts.find(w => w.id === workouEl.dataset.id);
     // setView(<LatLng> center, <Number> zoom, <Zoom/pan options> options?)
 
-    this.#map.setView(workout.coords, 13, {animate: true, pan: {duration: .5}})
-  }
+    this.#map.setView(workout.coords, 13, {
+      animate: true,
+      pan: { duration: 0.5 },
+    });
 
+    // Use publick interface
+    workout.click();
+  }
 }
 
 const app = new App();

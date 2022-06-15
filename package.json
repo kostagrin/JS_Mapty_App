@@ -1,0 +1,20 @@
+{
+  "name": "js_mapty_app",
+  "version": "1.0.0",
+  "description": "Mapty app built on vanila JS; allows to pin your workout placed on a map.",
+  "default": "index.html",
+  "scripts": {
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "keywords": [
+    "JS",
+    "FrontEnd",
+    "Web",
+    "Development"
+  ],
+  "author": "Konstantin Grinev",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.6.0"
+  }
+}

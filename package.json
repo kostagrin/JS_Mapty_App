@@ -1,7 +1,7 @@
 {
   "name": "js_mapty_app",
   "version": "1.0.0",
-  "description": "Mapty app built on vanila JS; allows to pin your workout placed on a map.",
+  "description": "Mapty app built on vanila JS; allows to pin your workout place on a map.",
   "default": "index.html",
   "scripts": {
     "build": "parcel build index.html --dist-dir ./dist"
